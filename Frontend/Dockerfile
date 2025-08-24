@@ -1,5 +1,5 @@
-# Stable PHP8 + Apache variant  [ version: 6.5-php8.2-apache ]
-FROM wordpress:latest                 
+# Stable PHP8 + Apache variant [ 6.5-php8.2-apache]
+FROM wordpress:latest
 
 # Recommended PHP extensions (zip, gd for images, imagick optional)
 RUN apt-get update && apt-get install -y \
@@ -14,10 +14,10 @@ RUN chmod +x /usr/local/bin/apache-healthcheck.sh
 
 # Copy your wp-content (themes/plugins/uploads)
 # NOTE: container startup pe wp-content overwrite hoga with this baked content.
-COPY wp-content /var/www/html/wp-content
+COPY yuvi /var/www/html/
 
 # Ensure correct perms
-RUN chown -R www-data:www-data /var/www/html/wp-content
+RUN chown -R www-data:www-data /var/www/html/
 
 HEALTHCHECK --interval=30s --timeout=5s --retries=5 \
   CMD /usr/local/bin/apache-healthcheck.sh || exit 1
